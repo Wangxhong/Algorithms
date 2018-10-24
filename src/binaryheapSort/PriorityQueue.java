@@ -2,8 +2,6 @@ package binaryheapSort;
 
 import java.util.Arrays;
 
-import sun.reflect.generics.tree.Tree;
-
 /*
  * 优先队列 （最大优先队列/最小优队列）
  */
