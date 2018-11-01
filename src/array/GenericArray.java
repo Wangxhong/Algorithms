@@ -19,6 +19,11 @@ public class GenericArray<T>
 	public GenericArray(int capacity)
 	{
 		this.data = (T[]) new Object[capacity];
+		
+		
+		
+		
+		
 		this.size = 0;
 	}
 
