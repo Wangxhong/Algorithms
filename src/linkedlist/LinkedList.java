@@ -9,7 +9,6 @@ package linkedlist;
  */
 public class LinkedList
 {
-
 	// 反转链表， 返回头结点
 	public Node reverse(Node list)
 	{
