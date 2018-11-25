@@ -57,4 +57,27 @@ public class InsertSort
 			array[i] = temp;
 		}
 	}
+
+	private void selection_test(int[] array)
+	{
+		if (array.length <= 1)
+			return;
+		for (int i = 0; i < array.length - 1; i++)
+		{
+			int minIndex = i;
+			int j = i + 1;
+			for (; j < array.length; ++j)
+			{
+				if (array[j] < array[minIndex])
+				{
+					minIndex = j;
+				}
+			}
+
+			int temp = array[minIndex];
+			array[minIndex] = array[i];
+			array[i] = temp;
+		}
+	}
+
 }

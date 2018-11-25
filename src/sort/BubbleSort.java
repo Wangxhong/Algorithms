@@ -42,4 +42,27 @@ public class BubbleSort
 			}
 		}
 	}
+
+	private void sort_1(int[] array, int n)
+	{
+		boolean flag = false;
+		for (int i = 0; i < array.length; i++)
+		{
+			flag = false;
+			for (int j = 0; j < (array.length - 1) - i; j++)
+			{
+				if (array[j] > array[j + 1])
+				{
+					int temp = array[j + 1];
+					array[j + 1] = array[j];
+					array[j] = temp;
+					flag = true;
+				}
+				if (!flag)
+				{
+					break;
+				}
+			}
+		}
+	}
 }
