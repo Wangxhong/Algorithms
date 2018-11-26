@@ -71,4 +71,41 @@ public class MergeSort
 			a[p + i] = temp[i];
 		}
 	}
+
+	private void merge_(int[] array, int p, int q, int r)
+	{
+		int i = p;
+		int j = q + 1;
+		int k = 0;
+		int[] temp = new int[r - p + 1];
+		// copy
+		while (i <= q && j <= r)
+		{
+			if (array[i] < array[j])
+			{
+				temp[k++] = array[i++];
+			}
+			else
+			{
+				temp[k++] = array[j++];
+			}
+		}
+		int start = i;
+		int end = q;
+		if (j <= r)
+		{
+			start = j;
+			end = r;
+		}
+		// copy
+		while (start <= end)
+		{
+			temp[k++] = array[start++];
+		}
+		// ¸³Öµ
+		for (int l = 0; l < temp.length; l++)
+		{
+			array[p + l] = temp[l];
+		}
+	}
 }
