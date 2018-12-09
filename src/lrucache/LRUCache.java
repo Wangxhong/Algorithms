@@ -38,7 +38,14 @@ public class LRUCache
 
 	public static void main(String[] args)
 	{
-		LRUCache cache = new LRUCache(5);
+		LRUCache cache = new LRUCache(16);
+		cache.put(6, "a");
+		cache.put(2, "b");
+		cache.put(1, "c");
+		cache.put(4, "d");
+		cache.put(5, "e");
+		cache.put(9, "f");
+		cache.get(6);
 	}
 
 	public String get(int key)
