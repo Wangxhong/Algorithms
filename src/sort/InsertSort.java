@@ -34,6 +34,27 @@ public class InsertSort
 		}
 	}
 
+	// n为数组array长度
+	private void insert_(int[] array, int n)
+	{
+		for (int i = 1; i < array.length; i++)
+		{
+			// value 与其他一一比较 ，不用每次交换
+			int value = array[i];
+			int j = i - 1;
+			for (; j >= 0; j--)
+			{
+				if (array[j] > value)
+				{
+					array[j + 1] = array[j];
+					continue;
+				}
+				break;
+			}
+			array[j + 1] = value;
+		}
+	}
+
 	// 选择排序
 	public static void selectionSort(int[] array, int n)
 	{
@@ -58,26 +79,25 @@ public class InsertSort
 		}
 	}
 
-	private void selection_test(int[] array)
+	private void selection_(int[] array, int n)
 	{
-		if (array.length <= 1)
+		if (n <= 1)
 			return;
-		for (int i = 0; i < array.length - 1; i++)
+		for (int i = 0; i < n - 1; i++)
 		{
 			int minIndex = i;
 			int j = i + 1;
-			for (; j < array.length; ++j)
+			for (; j < n; j++)
 			{
 				if (array[j] < array[minIndex])
 				{
 					minIndex = j;
 				}
 			}
-
+			// 交换
 			int temp = array[minIndex];
 			array[minIndex] = array[i];
 			array[i] = temp;
 		}
 	}
-
 }
