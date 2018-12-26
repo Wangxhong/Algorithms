@@ -113,8 +113,6 @@ public class SingleLinkedList
 			return;
 
 		m.next = m.next.next;
-		// TODO
-		// p.next=null; 不要置空的？？
 	}
 
 	// 根据值来删除节点
@@ -139,8 +137,6 @@ public class SingleLinkedList
 		{
 			m.next = m.next.next;
 		}
-		// TODO
-		// p.next=null; 不要置空的？？
 	}
 
 	public static Node createNode(int data)
@@ -162,6 +158,151 @@ public class SingleLinkedList
 		public int getData()
 		{
 			return data;
+		}
+	}
+
+	public void printAll()
+	{
+		Node p = head;
+		while (p != null)
+		{
+			System.out.print(p.data + " ");
+			p = p.next;
+		}
+		System.out.println();
+	}
+
+	// 判断是否是回文
+	private boolean palindrome()
+	{
+		if (head == null)
+		{
+			return false;
+		}
+		else
+		{
+			// 寻找中间节点
+			Node p = head;
+			Node q = head;
+			if (p.next == null)
+			{
+				return true;
+			}
+			while (q.next != null && q.next.next != null)
+			{
+				p = p.next;
+				q = q.next.next;
+			}
+			// 判断奇偶数
+			Node leftLink = null;
+			Node rightLink = null;
+			if (q.next == null)
+			{
+				rightLink = p.next;
+				leftLink = inverseLinkList(p).next;
+			}
+			else
+			{
+				rightLink = p.next;
+				leftLink = inverseLinkList(p);
+			}
+			// 判断是否是相等的
+			return TFResult(leftLink, rightLink);
+		}
+	}
+
+	private Node inverseLinkList(Node p)
+	{
+		Node pre = null;
+		Node r = head;
+		while (r != p)
+		{
+			Node next = r.next;
+			r.next = pre;
+			pre = r;
+			r = next;
+		}
+		r.next = pre;
+		return r;
+	}
+
+	private boolean TFResult(Node leftNode, Node rightNode)
+	{
+		Node l = leftNode;
+		Node r = rightNode;
+		while (l != null && r != null)
+		{
+			if (l.data == r.data)
+			{
+				l = l.next;
+				r = r.next;
+				continue;
+			}
+			else
+			{
+				break;
+			}
+		}
+		//
+		if (l == null && r == null)
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
+
+	public void insertTail(int value)
+	{
+		Node newNode = new Node(null, value);
+		// 空链表，可以插入新节点作为head，也可以不操作
+		if (head == null)
+		{
+			head = newNode;
+
+		}
+		else
+		{
+			Node q = head;
+			while (q.next != null)
+			{
+				q = q.next;
+			}
+			newNode.next = q.next;
+			q.next = newNode;
+		}
+	}
+
+	public static void main(String[] args)
+	{
+
+		SingleLinkedList link = new SingleLinkedList();
+		System.out.println("hello");
+		// int data[] = {1};
+		// int data[] = {1,2};
+		// int data[] = {1,2,3,1};
+		// int data[] = {1,2,5};
+		// int data[] = {1,2,2,1};
+		// int data[] = {1,2,5,2,1};
+		int data[] = { 1, 2, 5, 2, 1 };
+
+		for (int i = 0; i < data.length; i++)
+		{
+			// link.insertToHead(data[i]);
+			link.insertTail(data[i]);
+		}
+
+		System.out.println("打印原始:");
+		link.printAll();
+		if (link.palindrome())
+		{
+			System.out.println("回文");
+		}
+		else
+		{
+			System.out.println("不是回文");
 		}
 	}
 }

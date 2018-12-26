@@ -2,13 +2,7 @@ package lrucache;
 
 import java.util.HashMap;
 
-/**
- * Least Recently Used 最近最少使用算法
- * 
- * @author 王贤宏
- * 
- */
-public class LRUCache
+public class LRUCaches
 {
 	private Node head;
 	private Node tail;
@@ -16,7 +10,7 @@ public class LRUCache
 	private int limit;
 	private HashMap<Integer, Node> hashMap;
 
-	public LRUCache(int capacity)
+	public LRUCaches(int capacity)
 	{
 		hashMap = new HashMap<>(capacity);
 		this.limit = capacity;
@@ -38,7 +32,7 @@ public class LRUCache
 
 	public static void main(String[] args)
 	{
-		LRUCache cache = new LRUCache(16);
+		LRUCaches cache = new LRUCaches(16);
 		cache.put(6, "a");
 		cache.put(2, "b");
 		cache.put(1, "c");
@@ -48,42 +42,47 @@ public class LRUCache
 		cache.get(6);
 	}
 
+	//
 	public String get(int key)
 	{
 		Node node = hashMap.get(key);
-		if (node == null)
+		if (node != null)
 		{
-			return null;
+			refreshNode(node);
+			return node.value;
 		}
-		refreshNode(node);
-		return node.value;
+		return "";
 	}
 
-	public void remove(int key)
+	public String remove(int key)
 	{
-		Node node = hashMap.get(key);
-		removeNode(node);
-		hashMap.remove(key);
+		Node node = hashMap.remove(key);
+		if (node != null)
+		{
+			removeNode(node);
+			return node.value;
+		}
+		return "";
 	}
 
 	public void put(int key, String value)
 	{
 		Node node = hashMap.get(key);
-		if (node != null)
+		if (hashMap.containsKey(key))
 		{
-			node.value = value;
+			node = hashMap.get(key);
 			refreshNode(node);
 		}
 		else
 		{
-			if (hashMap.size() >= limit)
+			node = new Node(key, value);
+			if (hashMap.size() > limit)
 			{
 				int oldKey = removeNode(head);
 				hashMap.remove(oldKey);
 			}
-			node = new Node(key, value);
-			addNode(node);
 			hashMap.put(key, node);
+			addNode(node);
 		}
 	}
 
@@ -95,25 +94,7 @@ public class LRUCache
 		addNode(node);
 	}
 
-	private int removeNode(Node node)
-	{
-		if (head == node)
-		{
-			head = head.next;// TODO
-		}
-		else if (tail == node)
-		{
-			tail = tail.pre;
-		}
-		else
-		{
-			node.pre.next = node.next;
-			node.next.pre = node.pre;
-		}
-		return node.key;
-
-	}
-
+	// 添加到尾部
 	private void addNode(Node node)
 	{
 		if (tail != null)
@@ -129,4 +110,24 @@ public class LRUCache
 		}
 	}
 
+	// 从双向链表中删除Node
+	private int removeNode(Node node)
+	{
+		if (head == node)
+		{
+			head = head.next;
+			head.pre = null;//
+		}
+		else if (tail == node)
+		{
+			tail = tail.pre;
+			tail.next = null;//
+		}
+		else
+		{
+			node.pre.next = node.next;
+			node.next.pre = node.pre;
+		}
+		return node.key;
+	}
 }

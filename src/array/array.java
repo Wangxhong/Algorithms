@@ -35,7 +35,22 @@ public class array
 		if (count == n || index < 0 || index > count)
 			return false;
 
-		for (int i = count; i > index; i++)
+		for (int i = count; i > index; i--)
+		{
+			data[i] = data[i - 1];
+		}
+		data[index] = value;
+		count++;
+		return true;
+	}
+
+	public boolean insert_1(int index, int value)
+	{
+		if (count == n || index < 0 || index > count)
+		{
+			return false;
+		}
+		for (int i = count; i > index; --i)
 		{
 			data[i] = data[i - 1];
 		}
@@ -56,6 +71,22 @@ public class array
 		}
 		--count;
 		return value;
+	}
+
+	public int delete_1(int index)
+	{
+		if (count == 0 || index < 0 || index >= count)
+		{
+			return -1;
+		}
+		int value = data[index];
+		for (int i = index + 1; i < count; i++)
+		{
+			data[i - 1] = data[i];
+		}
+		count--;
+		return value;
+		// 要不要清空最后面的值，以节省空间
 	}
 
 	public static void main(String[] args)

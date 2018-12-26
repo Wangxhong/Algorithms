@@ -51,9 +51,9 @@ public class GenericArray<T>
 			resize(2 * size);
 		}
 		// 移动数据
-		for (int i = size - 1; i >= index; i--)
+		for (int i = size; i > index; i--)
 		{
-			data[i + 1] = data[i];
+			data[i] = data[i - 1];
 		}
 		// 赋值
 		data[index] = value;
@@ -70,6 +70,7 @@ public class GenericArray<T>
 		}
 		size--;
 		data[size] = null;
+		// 扩容
 		if (size == data.length / 4 && data.length / 2 != 0)
 		{
 			resize(data.length / 2);
