@@ -129,6 +129,52 @@ public class BinarySearchTree
 			pp.right = child;
 	}
 
+	public void delete_(int data)
+	{
+		if (tree == null)
+			return;
+		Node p = tree;
+		Node pp = p;
+
+		while (p != null && p.data != data)
+		{
+			pp = p;
+			if (p.data > data)
+				p = p.left;
+			else
+				p = p.right;
+		}
+		if (p == null)
+			return;
+		// 左右子节点都有的情况
+		if (p.left != null && p.right != null)
+		{
+			Node minp = p.right;
+			Node minpp = p;
+			while (minp.left != null)
+			{
+				minpp = minp;
+				minp = minp.left;
+			}
+			p.data = minp.data;
+			p = minp;
+			pp = minpp;
+		}
+		//
+		Node child = null;
+		if (p.left != null)
+			child = p.left;
+		else
+			child = p.right;
+		//
+		if (pp == null)
+			tree = child;
+		else if (pp.left == p)
+			pp.left = child;
+		else if (pp.right == p)
+			pp.right = child;
+	}
+
 	public static class Node
 	{
 		private int data;

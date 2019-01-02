@@ -20,10 +20,12 @@ public class QuickSort
 		if (p >= r)
 			return;
 		int pivot = partition(a, p, r);
+		// int pivot = partitionLeftRight(a, p, r);
 		quickSortInternally(a, p, pivot - 1);
 		quickSortInternally(a, pivot + 1, r);
 	}
 
+	// 返回切分点的位置,思路是j<r,递增遍历，当小于分点时，与i位置的值互换，i加一，继续遍历，直到遍历完成，最后将i位置的值与pivot的值互换，返回i索引
 	private static int partition(int[] a, int p, int r)
 	{
 		int pivot = a[r];
@@ -48,34 +50,34 @@ public class QuickSort
 		return i;
 	}
 
-	private static int partition_(int[] arr, int startIndex, int endIndex)
+	// 左右指针交换法，判断条件为right!=left;
+	private static int partitionLeftRight(int[] array, int startIndex,
+			int endIndex)
 	{
-		int pivot = arr[startIndex];
 		int left = startIndex;
 		int right = endIndex;
-
-		while (left != right)
+		int pivot = array[startIndex];
+		while (right != left)
 		{
-			while (right > left && arr[right] > pivot)
+			while (right > left && array[right] > pivot)
 			{
 				right--;
 			}
-			while (right > left && arr[left] <= pivot)
+			while (right > left && array[left] < pivot)
 			{
-				left++;
+				left--;
 			}
-			//
+			// right==left，交换没有意义
 			if (right > left)
 			{
-				int tempValue = arr[left];
-				arr[left] = arr[right];
-				arr[right] = tempValue;
+				int temp = array[left];
+				array[left] = array[right];
+				array[right] = temp;
 			}
 		}
-		//
-		int temp = arr[left];
-		arr[left] = pivot;
-		arr[startIndex] = temp;
+		int temp = array[left];
+		array[left] = pivot;
+		array[startIndex] = temp;
 		return left;
 	}
 

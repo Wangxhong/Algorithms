@@ -22,11 +22,9 @@ public class BinarySearch
 			return -1;
 		int high = array.length - 1;
 		int low = 0;
-		int mid = 0;
-
 		while (high >= low)
 		{
-			mid = low + ((high - low) >> 1);
+			int mid = low + ((high - low) >> 1);
 			if (value < array[mid])
 			{
 				high = mid - 1;
