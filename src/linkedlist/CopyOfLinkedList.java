@@ -33,20 +33,18 @@ public class CopyOfLinkedList
 
 	private Node reverse_01(Node head)
 	{
+		if (head.next == null)
+			return head;
 		Node pre = null;
-		Node newHead = null;
 		while (head != null)
 		{
 			Node node = head.next;
-			if (node == null)
-			{
-				newHead = head;
-			}
 			head.next = pre;
 			pre = head;
 			head = node;
 		}
-		return newHead;
+		return pre;
+
 	}
 
 	// 检测是否为循环链表（环的检测）
@@ -72,15 +70,17 @@ public class CopyOfLinkedList
 
 	private boolean checkCircle_01(Node head)
 	{
-		if (head == null)
+		if (head == null || head.next == null)
+		{
 			return false;
+		}
 		Node slow = head;
 		Node fast = head.next;
-		while (fast != null && fast.next != null)
+		while (fast != null && fast.next != null)// 判断条件
 		{
-			fast = fast.next.next;
 			slow = slow.next;
-			if (fast == slow)
+			fast = fast.next.next;
+			if (slow == fast)
 			{
 				return true;
 			}
@@ -96,7 +96,7 @@ public class CopyOfLinkedList
 		if (lb == null)
 			return la;
 
-		Node head = null;
+		Node head = null; //
 		Node p = la;
 		Node q = lb;
 
@@ -141,6 +141,55 @@ public class CopyOfLinkedList
 		return head;
 	}
 
+	private Node mergeSortedList_(Node list1, Node list2)
+	{
+		if (list1 == null)
+			return list2;
+		if (list2 == null)
+			return list1;
+
+		Node p = list1;
+		Node q = list2;
+
+		Node head, curNode;
+		// 初始指向
+		if (p.data < q.data)
+		{
+			head = curNode = p;
+			p = p.next;
+		}
+		else
+		{
+			head = curNode = q;
+			q = q.next;
+		}
+		//
+		while (p != null && q != null)
+		{
+			if (p.data < q.data)
+			{
+				curNode.next = p;
+				p = p.next;
+			}
+			else
+			{
+				curNode.next = q;
+				q = q.next;
+			}
+			curNode = curNode.next;
+		}
+		// 判断哪个没有结束，并拼接上
+		if (p != null)
+		{
+			curNode.next = p;
+		}
+		if (q != null)
+		{
+			curNode.next = q;
+		}
+		return head;
+	}
+
 	// 删除倒数第K个的结点
 	public Node deleteLastKth(Node list, int k)
 	{
@@ -181,23 +230,28 @@ public class CopyOfLinkedList
 
 	private Node deleteK(Node head, int k)
 	{
-		Node fast = head;
+		Node forward = head;
 		int i = 1;
-		while (fast != null && i < k)
+		while (forward != null && i < k)
 		{
-			fast = fast.next;
+			forward = forward.next;
 			i++;
 		}
-		if (fast == null)
-			return head;
-		Node slow = head;
-		Node pre = null;
-		while (fast.next != null)
+		// 倒数K超出范围
+		if (forward == null)
 		{
-			fast = fast.next;
-			pre = slow;
-			slow = slow.next;
+			return head;
 		}
+		//
+		Node pre = null;
+		Node back = head;
+		while (forward.next != null)
+		{
+			forward = forward.next;
+			pre = back;
+			back = back.next;
+		}
+		// 倒数K与头结点正好重合
 		if (pre == null)
 		{
 			head = head.next;
@@ -213,15 +267,16 @@ public class CopyOfLinkedList
 	public Node findMiddleNode(Node list)
 	{
 		if (list == null)
+		{
 			return null;
+		}
 		Node slow = list;
 		Node fast = list;
-		while (fast.next != null && fast.next.next != null)
+		while (fast.next != null && fast.next.next != null) //
 		{
-			fast = fast.next.next;
 			slow = slow.next;
+			fast = fast.next.next;
 		}
-
 		return slow;
 	}
 

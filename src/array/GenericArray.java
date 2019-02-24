@@ -1,20 +1,22 @@
 package array;
 
+
 /**
- * 泛型动态数组
+ * 泛型动态数组,实现增删操作
  * 
  * @author xhwang
  */
 public class GenericArray<T>
 {
-
+	// 无参构造方法，默认数组容量为10
+	private static final int DEFAULT_CAPACITY = 10;
 	private T[] data;
 	private int size;
+	private int modCount;
 
-	// 无参构造方法，默认数组容量为10
 	public GenericArray()
 	{
-		this(10);
+		this(0);
 	}
 
 	public GenericArray(int capacity)
@@ -45,10 +47,15 @@ public class GenericArray<T>
 	{
 		// 检查下标
 		checkIndex(index);
-		// 扩容
-		if (size >= data.length)
+		// lasy init
+		if (data.length == 0)
 		{
-			resize(2 * size);
+			data = (T[]) new Object[DEFAULT_CAPACITY];
+		}
+		// 扩容
+		else if (size >= data.length)
+		{
+			resize(2 * size); // ArrayList为1.5倍
 		}
 		// 移动数据
 		for (int i = size; i > index; i--)
@@ -58,6 +65,7 @@ public class GenericArray<T>
 		// 赋值
 		data[index] = value;
 		size++;
+		modCount++;
 	}
 
 	public T remove(int index)
@@ -69,13 +77,27 @@ public class GenericArray<T>
 			data[i - 1] = data[i];
 		}
 		size--;
+		modCount++;
 		data[size] = null;
-		// 扩容
+		// 缩小容量
 		if (size == data.length / 4 && data.length / 2 != 0)
 		{
 			resize(data.length / 2);
 		}
 		return t;
+	}
+
+	private void resize(int capacity)
+	{
+		@SuppressWarnings("unchecked")
+		T[] newdata = (T[]) new Object[capacity];
+
+		for (int i = 0; i < size; i++)
+		{
+			newdata[i] = data[i];
+		}
+		modCount++;
+		data = newdata;
 	}
 
 	// 向数组头插入元素
@@ -122,17 +144,6 @@ public class GenericArray<T>
 			}
 		}
 		return -1;
-	}
-
-	private void resize(int capacity)
-	{
-		T[] newdata = (T[]) new Object[capacity];
-
-		for (int i = 0; i < size; i++)
-		{
-			newdata[i] = data[i];
-		}
-		data = newdata;
 	}
 
 	private void checkIndex(int index)

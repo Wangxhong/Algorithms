@@ -1,4 +1,5 @@
 package practice;
+
 import java.util.Arrays;
 
 /**
@@ -12,9 +13,9 @@ public class AlgorithmSkill
 
 	public static void main(String[] args)
 	{
-		int[] array = new int[] { 3, 6, 3, 5, 6, 7, 8, 6, 19, 15 };
-		sortByIndex(array);
-
+		// int[] array = new int[] { 3, 6, 3, 5, 6, 7, 8, 6, 19, 15 };
+		// sortByIndex(array);
+		fun_1(10);
 	}
 
 	/**
@@ -110,9 +111,9 @@ public class AlgorithmSkill
 	}
 
 	// 使用状体保存进行优化(备忘录法)
-	int[] arr = new int[1000];
+	static int[] arr = new int[15];
 
-	private int fun_1(int n)
+	private static int fun_1(int n)
 	{
 		if (n <= 2)
 		{

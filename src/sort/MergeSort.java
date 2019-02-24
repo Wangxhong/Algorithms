@@ -1,5 +1,7 @@
 package sort;
 
+import java.util.Arrays;
+
 /**
  * 归并算法 时间O(nlogn),空间O(n),属于稳定的排序 分治思想
  * 
@@ -12,9 +14,12 @@ public class MergeSort
 {
 	public static void main(String[] args)
 	{
-
+		int[] array = new int[] { 2, 4, 5, 1, 0 };
+		mergeSort(array, array.length);
+		System.out.print("array:" + Arrays.toString(array));
 	}
 
+	// 数组为array ,长度为n
 	public static void mergeSort(int[] array, int n)
 	{
 		mergeSortInternally(array, 0, n - 1);
@@ -22,13 +27,12 @@ public class MergeSort
 
 	private static void mergeSortInternally(int[] a, int p, int r)
 	{
-		if (p <= r)
+		if (p >= r)
 			return;
 		// 中间值
 		int q = p + (r - p) / 2;
 		mergeSortInternally(a, p, q);
 		mergeSortInternally(a, q + 1, r);
-
 		// 合并
 		merge(a, p, q, r);
 	}
@@ -41,7 +45,7 @@ public class MergeSort
 		// 申请临时数组
 		int[] temp = new int[r - p + 1];
 		// copy
-		while (i <= p && j <= r)
+		while (i <= q && j <= r)
 		{
 			if (a[i] < a[j])
 			{
@@ -66,46 +70,57 @@ public class MergeSort
 			temp[k++] = a[start++];
 		}
 		// 赋值
-		for (i = 0; i < (r - p); i++)
+		for (i = 0; i <= (r - p); i++)
 		{
 			a[p + i] = temp[i];
 		}
 	}
 
-	private void merge_(int[] array, int p, int q, int r)
+	// TODO
+	private static void mergeSortInternally_(int[] a, int p, int r)
 	{
-		int i = p;
-		int j = q + 1;
-		int k = 0;
+		if (p >= r)
+		{
+			return;
+		}
+		//
+		int q = p + (r - p) / 2;
+		mergeSortInternally_(a, p, q);
+		mergeSortInternally_(a, q + 1, r);
+		merge_(a, p, q, r);
+	}
+
+	private static void merge_(int[] array, int p, int q, int r)
+	{
+		int i = p, j = q + 1;
+		int index = 0;
 		int[] temp = new int[r - p + 1];
-		// copy
 		while (i <= q && j <= r)
 		{
-			if (array[i] < array[j])
+			if (array[i] <= array[j])
 			{
-				temp[k++] = array[i++];
+				temp[index++] = array[i++];
 			}
 			else
 			{
-				temp[k++] = array[j++];
+				temp[index++] = array[j++];
 			}
 		}
-		int start = i;
-		int end = q;
+		//
+		int start = i, end = q;
 		if (j <= r)
 		{
 			start = j;
 			end = r;
 		}
-		// copy
 		while (start <= end)
 		{
-			temp[k++] = array[start++];
+			temp[index++] = array[start++];
 		}
-		// 赋值
-		for (int l = 0; l < temp.length; l++)
+		//
+		for (int k = 0; k < temp.length; k++)
 		{
-			array[p + l] = temp[l];
+			array[p + k] = temp[k];
 		}
 	}
 }
