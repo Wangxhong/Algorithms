@@ -62,4 +62,9 @@ public class CircularQueue
 		}
 		System.out.println();
 	}
+
+	// 其实像ArrayDeque,就是一个非常好的设计
+	// 可以使用位运算来进行，效率更高：如：
+	// head=(head - 1) & (elements.length - 1)
+	// tail=(tail + 1) & (elements.length - 1)
 }

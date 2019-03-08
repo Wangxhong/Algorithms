@@ -14,7 +14,7 @@ public class recursion
 {
 	// 终止条件：f(1)=1
 	// 递推公式： f(n)=f(n-1)+1;
-	private int func(int n)
+	public int func(int n)
 	{
 		if (n == 1)
 			return 1;
@@ -22,7 +22,7 @@ public class recursion
 	}
 
 	// 优化
-	private int func_1(int n)
+	public int func_1(int n)
 	{
 		if (n == 1)
 			return 1;
@@ -37,7 +37,8 @@ public class recursion
 	// 有 n 个台阶，每次你可以跨 1 个台阶或者 2 个台阶，请问有多少种走法？
 	// f(1)==1;f(2)==2
 	// f(n)=f(n-1)+f(n-2)
-	private int fun(int n)
+	// 时间复杂度为O(2^n)
+	public int fun(int n)
 	{
 		if (n == 1)
 			return 1;
@@ -46,8 +47,30 @@ public class recursion
 		return fun(n - 1) + fun(n - 2);
 	}
 
+	// 减少重复计算
+	private HashMap<Integer, Integer> map = new HashMap<>();
+
+	// 空间复杂度为O(N),时间复杂度也为O(N)
+	public int fun_2(int n)
+	{
+		if (n == 1)
+			return 1;
+		if (n == 2)
+			return 2;
+
+		if (map.containsKey(n))
+		{
+			return map.get(n);
+		}
+		int res = fun_2(n - 1) + fun_2(n - 2);
+
+		map.put(n, res);
+		return res;
+	}
+
 	// 优化函数 ,可以减少栈的深度，也可以用全局变量来控制深度
-	private int fun_1(int n)
+	// 这个简单的动态规划的过程，也称动态递归：1.最优子结构，2 边界确定，3状态转移方程
+	public int fun_1(int n)
 	{
 		if (n == 1)
 			return 1;
@@ -65,24 +88,6 @@ public class recursion
 		}
 		return sum;
 	}
+	// 时间复杂度为O(N),但是空间复杂度只为O(1)
 
-	// 减少重复计算
-	private HashMap<Integer, Integer> map = new HashMap<>();
-
-	private int fun_2(int n)
-	{
-		if (n == 1)
-			return 1;
-		if (n == 2)
-			return 2;
-
-		if (map.containsKey(n))
-		{
-			return map.get(n);
-		}
-		int res = fun_2(n - 1) + fun_2(n - 2);
-
-		map.put(n, res);
-		return res;
-	}
 }
