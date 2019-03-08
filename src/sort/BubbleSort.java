@@ -22,7 +22,7 @@ public class BubbleSort
 	 */
 	public static void sort(int[] array, int n)
 	{
-		boolean flag = false;
+		boolean flag = false;// flag为false，说明没有数据交换，表示是有序的，跳出
 		for (int i = 0; i < n; i++)
 		{
 			flag = false;
@@ -39,29 +39,6 @@ public class BubbleSort
 			if (!flag)
 			{
 				break;
-			}
-		}
-	}
-
-	private void sort_1(int[] array, int n)
-	{
-		boolean flag = false;
-		for (int i = 0; i < array.length; i++)
-		{
-			flag = false;
-			for (int j = 0; j < (array.length - 1) - i; j++)
-			{
-				if (array[j] > array[j + 1])
-				{
-					int temp = array[j + 1];
-					array[j + 1] = array[j];
-					array[j] = temp;
-					flag = true;
-				}
-				if (!flag)
-				{
-					break;
-				}
 			}
 		}
 	}

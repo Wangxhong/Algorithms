@@ -9,6 +9,8 @@ public class InsertSort
 	}
 
 	// 插入排序
+	// 时间复杂度O(n^2~n),空间复杂度为O(1)
+	// 稳定排序
 	public static void insertionSort(int[] array, int n)
 	{
 
@@ -34,28 +36,9 @@ public class InsertSort
 		}
 	}
 
-	// n为数组array长度
-	private void insert_(int[] array, int n)
-	{
-		for (int i = 1; i < array.length; i++)
-		{
-			// value 与其他一一比较 ，不用每次交换
-			int value = array[i];
-			int j = i - 1;
-			for (; j >= 0; j--)
-			{
-				if (array[j] > value)
-				{
-					array[j + 1] = array[j];
-					continue;
-				}
-				break;
-			}
-			array[j + 1] = value;
-		}
-	}
-
 	// 选择排序
+	// 空间复杂度为O(1),不管是否有序，时间复杂度O(n^2)
+	// 是不稳定的排序
 	public static void selectionSort(int[] array, int n)
 	{
 		if (n <= 1)
@@ -66,28 +49,6 @@ public class InsertSort
 			// 查找最小值
 			int minIndex = i;
 			for (int j = i + 1; j < n; j++)
-			{
-				if (array[j] < array[minIndex])
-				{
-					minIndex = j;
-				}
-			}
-			// 交换
-			int temp = array[minIndex];
-			array[minIndex] = array[i];
-			array[i] = temp;
-		}
-	}
-
-	private void selection_(int[] array, int n)
-	{
-		if (n <= 1)
-			return;
-		for (int i = 0; i < n - 1; i++)
-		{
-			int minIndex = i;
-			int j = i + 1;
-			for (; j < n; j++)
 			{
 				if (array[j] < array[minIndex])
 				{
