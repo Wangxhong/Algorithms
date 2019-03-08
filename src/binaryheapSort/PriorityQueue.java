@@ -28,11 +28,12 @@ public class PriorityQueue
 		queue.enQueue(9);
 		System.out.print(Arrays.toString(array));
 		//
-		int value1=queue.deQueue();
-		int value2=queue.deQueue();
-		int value3=queue.deQueue();
-		
-		System.out.print("出栈："+Integer.toString(value1)+Integer.toString(value2)+Integer.toString(value3));
+		int value1 = queue.deQueue();
+		int value2 = queue.deQueue();
+		int value3 = queue.deQueue();
+
+		System.out.print("出栈：" + Integer.toString(value1)
+				+ Integer.toString(value2) + Integer.toString(value3));
 
 	}
 
@@ -49,7 +50,7 @@ public class PriorityQueue
 	private int deQueue()
 	{
 		int heap = array[0];
-		array[0] = array[size--];
+		array[0] = array[--size];
 		downAdjust(array, 0, size);
 		return heap;
 	}
@@ -57,7 +58,7 @@ public class PriorityQueue
 	// 上浮调整
 	private void upAdjust(int[] array)
 	{
-		int childIndex = size - 1; //是完全二叉树
+		int childIndex = size - 1; // 是完全二叉树
 		int parentIndex = (childIndex - 1) / 2;
 		int temp = array[childIndex];
 		while (childIndex > 0 && temp > array[parentIndex])
@@ -69,6 +70,7 @@ public class PriorityQueue
 		array[childIndex] = temp;
 	}
 
+	// 下浮调整
 	private void downAdjust(int[] array, int parentIndex, int length)
 	{
 		int temp = array[parentIndex];

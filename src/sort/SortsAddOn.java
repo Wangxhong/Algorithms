@@ -14,6 +14,7 @@ public class SortsAddOn
 		{
 			return;
 		}
+		// 从前往后遍历，从小到大排序，类似水泡往上走
 		for (int i = 0; i < arr.length; i++)
 		{
 			int j = i + 1;
@@ -24,6 +25,19 @@ public class SortsAddOn
 					int temp = arr[i];
 					arr[i] = arr[j];
 					arr[j] = temp;
+				}
+			}
+		}
+		// 从尾部向前遍历，取出最大值
+		for (int i = arr.length - 1; i >= 0; i--)
+		{
+			for (int j = 0; j < i; j++)
+			{
+				if (arr[j] > arr[i])
+				{
+					int temp = arr[j];
+					arr[j] = arr[i];
+					arr[i] = temp;
 				}
 			}
 		}
