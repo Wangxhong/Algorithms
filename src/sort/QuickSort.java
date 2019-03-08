@@ -50,38 +50,6 @@ public class QuickSort
 		return i;
 	}
 
-	// 左右指针交换法，判断条件为right!=left;
-	private static int partitionLeftRight(int[] array, int startIndex,
-			int endIndex)
-	{
-		int left = startIndex;
-		int right = endIndex;
-		int pivot = array[startIndex];
-		while (right != left)
-		{
-			while (right > left && array[right] > pivot)
-			{
-				right--;
-			}
-			while (right > left && array[left] < pivot)
-			{
-				left--;
-			}
-			// right==left，交换没有意义
-			if (right > left)
-			{
-				int temp = array[left];
-				array[left] = array[right];
-				array[right] = temp;
-			}
-		}
-		int temp = array[left];
-		array[left] = pivot;
-		array[startIndex] = temp;
-		return left;
-	}
-
 	// 归并排序：由下到上的，先处理子问题，然后再合并
 	// 而快排正好相反，它的处理过程是由上到下的，先分区，然后再处理子问题
-
 }

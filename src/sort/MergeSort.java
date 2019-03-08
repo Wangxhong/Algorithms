@@ -76,7 +76,7 @@ public class MergeSort
 		}
 	}
 
-	// TODO
+	//
 	private static void mergeSortInternally_(int[] a, int p, int r)
 	{
 		if (p >= r)
