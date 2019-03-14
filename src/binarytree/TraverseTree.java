@@ -6,55 +6,50 @@ import java.util.List;
 import java.util.Queue;
 
 /**
- * 按层遍历二叉树
+ * 按层遍历二叉树，按层打印出来
  * 
  * @author 王贤宏
  */
 public class TraverseTree
 {
-	public List<List<Integer>> levelOrder(TreeNode root)
+	private static List<TreeNode> levelOrder(TreeNode root)
 	{
 		if (root == null)
 			return new ArrayList<>(0);
 
-		List<List<Integer>> result = new ArrayList<>();
+		List<TreeNode> result = new ArrayList<>();
 
 		Queue<TreeNode> queue = new LinkedList<TreeNode>();
 		queue.offer(root);
-
-		Queue<TreeNode> curLevelNodes = new LinkedList<TreeNode>();
+		TreeNode preLast = root, last = root;
 
 		while (!queue.isEmpty())
 		{
 			TreeNode node = queue.poll();
-			curLevelNodes.offer(node);
 
-			if (queue.isEmpty())
+			result.add(node);
+			System.out.print(node.val + " ");
+			if (node.left != null)
 			{
-				List<Integer> list = new ArrayList<>(curLevelNodes.size());
-				while (!curLevelNodes.isEmpty())
-				{
-					TreeNode curNode = curLevelNodes.poll();
-					list.add(curNode.val);
-
-					if (curNode.left != null)
-					{
-						queue.offer(curNode.left);
-					}
-
-					if (curNode.right != null)
-					{
-						queue.offer(curNode.right);
-					}
-
-				}
-				result.add(list);
+				queue.offer(node.left);
+				last = node.left;
+			}
+			if (node.right != null)
+			{
+				queue.offer(node.right);
+				last = node.right;
+			}
+			// 换行打印
+			if (preLast == node)
+			{
+				preLast = last;
+				System.out.println();
 			}
 		}
 		return result;
 	}
 
-	private class TreeNode
+	private static class TreeNode
 	{
 		int val;
 		TreeNode left;
@@ -64,5 +59,18 @@ public class TraverseTree
 		{
 			val = x;
 		}
+	}
+
+	public static void main(String[] args)
+	{
+		TreeNode root = new TreeNode(1);
+		root.left = new TreeNode(2);
+		root.right = new TreeNode(3);
+		root.left.left = new TreeNode(4);
+		root.right.left = new TreeNode(5);
+		root.right.right = new TreeNode(6);
+		root.right.left.left = new TreeNode(7);
+		root.right.left.right = new TreeNode(8);
+		levelOrder(root);
 	}
 }

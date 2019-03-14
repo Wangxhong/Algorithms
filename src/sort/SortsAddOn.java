@@ -76,13 +76,29 @@ public class SortsAddOn
 		}
 	}
 
-	private static void print(int[] arr)
+	// 5/2/1
+	private void shellSort_(int[] arr)
 	{
-		System.out.println("Print array:");
-		for (int x : arr)
+		// 增量gap，并逐步缩小增量
+		for (int gap = arr.length / 2; gap > 0; gap = gap >> 1)
 		{
-			System.out.print(x + "\t");
+			// 从第gap个元素，逐个对其所在组进行直接插入排序操作
+			for (int i = gap; i < arr.length; i++)
+			{
+				int j = i;
+				while (j - gap >= 0 && arr[j] < arr[j - gap])
+				{
+					swap(arr, j, j - gap);
+					j -= gap;
+				}
+			}
 		}
-		System.out.println("");
+	}
+
+	private static void swap(int[] arr, int j, int i)
+	{
+		int temp = arr[j];
+		arr[j] = arr[i];
+		arr[i] = temp;
 	}
 }

@@ -151,41 +151,35 @@ public class CopyOfLinkedList
 		Node p = list1;
 		Node q = list2;
 
-		Node head, curNode;
+		Node head = null;
 		// 初始指向
 		if (p.data < q.data)
 		{
-			head = curNode = p;
+			head = p;
 			p = p.next;
 		}
-		else
-		{
-			head = curNode = q;
-			q = q.next;
-		}
-		//
+		// 循环拼接
 		while (p != null && q != null)
 		{
 			if (p.data < q.data)
 			{
-				curNode.next = p;
+				head = p;
 				p = p.next;
 			}
 			else
 			{
-				curNode.next = q;
+				head = q;
 				q = q.next;
 			}
-			curNode = curNode.next;
 		}
 		// 判断哪个没有结束，并拼接上
 		if (p != null)
 		{
-			curNode.next = p;
+			head = p;
 		}
 		if (q != null)
 		{
-			curNode.next = q;
+			head = q;
 		}
 		return head;
 	}
@@ -230,21 +224,18 @@ public class CopyOfLinkedList
 
 	private Node deleteK(Node head, int k)
 	{
-		Node forward = head;
+		Node back = head, forward = head;
+		Node pre = null;
+		// 确定fast的位置与K位置对称
 		int i = 1;
 		while (forward != null && i < k)
 		{
 			forward = forward.next;
-			i++;
 		}
 		// 倒数K超出范围
 		if (forward == null)
-		{
 			return head;
-		}
-		//
-		Node pre = null;
-		Node back = head;
+		// 寻循环遍历，到结尾
 		while (forward.next != null)
 		{
 			forward = forward.next;

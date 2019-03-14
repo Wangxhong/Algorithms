@@ -12,22 +12,17 @@ public class LinkedList
 	// 反转链表， 返回头结点
 	public Node reverse(Node list)
 	{
-		Node headNode = null;
 		Node preNode = null;
 		Node curNode = list;
 
 		while (curNode != null)
 		{
 			Node node = curNode.next;
-			if (node == null)
-			{
-				headNode = curNode;
-			}
 			curNode.next = preNode;
 			preNode = curNode;
 			curNode = node;
 		}
-		return headNode;
+		return preNode;
 	}
 
 	// 检测是否为循环链表（环的检测）

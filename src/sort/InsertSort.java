@@ -9,7 +9,7 @@ public class InsertSort
 	}
 
 	// 插入排序
-	// 时间复杂度O(n^2~n),空间复杂度为O(1)
+	// 时间复杂度O(n~n^2),空间复杂度为O(1)
 	// 稳定排序
 	public static void insertionSort(int[] array, int n)
 	{

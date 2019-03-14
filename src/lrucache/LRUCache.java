@@ -99,7 +99,7 @@ public class LRUCache
 	{
 		if (head == node)
 		{
-			head = head.next;// TODO
+			head = head.next;
 		}
 		else if (tail == node)
 		{
