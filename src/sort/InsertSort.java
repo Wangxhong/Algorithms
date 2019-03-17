@@ -19,17 +19,9 @@ public class InsertSort
 			int value = array[i];
 			int j = i - 1;
 			// 查找要插入的位置并移动数据
-			for (; j >= 0; --j)
+			for (; j >= 0 && array[j] > value; --j)
 			{
-				if (array[j] > value)
-				{
-					array[j + 1] = array[j];
-				}
-				else
-				{
-					break;
-				}
-
+				array[j + 1] = array[j];
 			}
 			// 定位赋值
 			array[j + 1] = value;
